@@ -3,11 +3,11 @@ services:
     container_name: postgres
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_DB: 'ny_taxi'
+      POSTGRES_USER: ${PIPELINE_PG_USER}
+      POSTGRES_PASSWORD: ${PIPELINE_PG_PASSWORD}
+      POSTGRES_DB: ${PIPELINE_PG_DB}
     ports:
-      - '5433:5432'
+      - '127.0.0.1:5433:5432'
     volumes:
       - vol-pgdata:/var/lib/postgresql/data
 
@@ -15,10 +15,10 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
     environment:
-      PGADMIN_DEFAULT_EMAIL: "pgadmin@pgadmin.com"
-      PGADMIN_DEFAULT_PASSWORD: "pgadmin"
+      PGADMIN_DEFAULT_EMAIL: ${PIPELINE_PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PIPELINE_PGADMIN_PASSWORD}
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     volumes:
       - vol-pgadmin_data:/var/lib/pgadmin
 

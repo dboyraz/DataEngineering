@@ -1,0 +1,16 @@
+id: yellow_taxi_2021_03_rowcount
+namespace: zoomcamp
+description: |
+  Count rows for Yellow Taxi March 2021 (excluding header).
+
+tasks:
+  - id: count_rows_2021_03
+    type: io.kestra.plugin.scripts.shell.Commands
+    taskRunner:
+      type: io.kestra.plugin.core.runner.Process
+    commands:
+      - |
+        file="yellow_tripdata_2021-03.csv.gz"
+        url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/${file}"
+        rows=$(wget -qO- "$url" | gunzip | tail -n +2 | wc -l)
+        echo "rows_2021_03=${rows}"
